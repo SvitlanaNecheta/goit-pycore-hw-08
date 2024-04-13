@@ -2,7 +2,7 @@ from collections import UserDict
 from collections import defaultdict
 import datetime as dt
 import re
-
+import pickle
 #********************************************
 class Field:
     def __init__(self, value):
@@ -235,10 +235,21 @@ def birthdays(book: AddressBook):
     else:
         return "No upcoming birthdays."
         
+def save_data(book, filename="addressbook.pkl"):
+    with open(filename, "wb") as f:
+        pickle.dump(book, f)
+
+def load_data(filename="addressbook.pkl"):
+    try:
+        with open(filename, "rb") as f:
+            return pickle.load(f)
+    except FileNotFoundError:
+        return AddressBook() 
+
 # Створення нової адресної книги
 
 def main(): 
-    book = AddressBook()
+    book = load_data()
     print("-" * 20)
     print("Welcome to the AddressBooks assistant bot!")
     print("-" * 20)
@@ -247,6 +258,7 @@ def main():
         command, *args = parse_input(user_input)
 
         if command in ["close", "exit"]:
+                save_data(book)
                 print("Good bye!")
                 print("-" * 20)
                 break
