@@ -3,6 +3,7 @@ from collections import defaultdict
 import datetime as dt
 import re
 import pickle
+from abc import abstractmethod, ABCMeta
 #********************************************
 class Field:
     def __init__(self, value):
@@ -128,6 +129,14 @@ class AddressBook(UserDict):
 
         return upcoming_birthdays
 
+class MyOutputABC(metaclass=ABCMeta):
+    @abstractmethod
+    def output(self):
+        pass
+
+class MyOutputTerminal(MyOutputABC):
+    def ouyput(self):
+        pass
 
 
 
@@ -235,7 +244,7 @@ def save_data(book, filename="addressbook.pkl"):
     with open(filename, "wb") as f:
         pickle.dump(book, f)
 
-
+  
 def load_data(filename="addressbook.pkl"):
     try:
         with open(filename, "rb") as f:
