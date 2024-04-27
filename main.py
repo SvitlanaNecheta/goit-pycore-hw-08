@@ -131,11 +131,21 @@ class AddressBook(UserDict):
 
 class MyOutputABC(metaclass=ABCMeta):
     @abstractmethod
-    def output(self):
+    def display_contacts(self, contacts):
+        pass
+    
+    @abstractmethod
+    def display_commands(self, commands):
         pass
 
 class MyOutputTerminal(MyOutputABC):
-    def ouyput(self):
+
+
+    def display_contacts(self, contacts):
+        pass
+    
+   
+    def display_commands(self, commands):
         pass
 
 
